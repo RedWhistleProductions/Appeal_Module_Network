@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Network Module Command Reference</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f7f7f4; --fg:#1c1d20; --panel:#fff; --line:#cfd4d9; --muted:#5d6470; --accent:#15616d; }
+    @media (prefers-color-scheme:dark) { :root { --bg:#15171a; --fg:#eceff3; --panel:#1f2328; --line:#343a42; --muted:#aab2bd; --accent:#4fb3bf; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:1200px; margin:auto; padding:34px 22px 56px; }
+    h1 { margin:0 0 8px; font-size:clamp(2rem,5vw,3.2rem); }
+    .summary { color:var(--muted); margin-bottom:24px; }
+    input { width:100%; max-width:520px; margin:0 0 18px; padding:10px 12px; border:1px solid var(--line); border-radius:7px; background:var(--panel); color:var(--fg); }
+    table { width:100%; border-collapse:collapse; background:var(--panel); }
+    th,td { padding:10px 12px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:color-mix(in srgb,var(--accent),transparent 86%); }
+    th:first-child { width:24%; } th:nth-child(2) { width:31%; }
+    code { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; overflow-wrap:anywhere; }
+    footer { margin-top:20px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Network Module</h1>
+    <p class="summary">Command reference generated from <code>src/main.cpp</code>. Arguments are shown in the order consumed by the module interpreter.</p>
+    <label for="filter">Filter commands</label><br>
+    <input id="filter" type="search" placeholder="Type a command, argument, or description">
+    <table>
+      <thead><tr><th>Command</th><th>Arguments</th><th>Description</th></tr></thead>
+      <tbody>
+        <tr><td><code>Init</code></td><td><code>Name: string</code></td><td>Initializes the module and loads its default plugin.</td></tr>
+        <tr><td><code>Debug</code></td><td><code>Value: string</code></td><td>Enables or disables diagnostic logging for the module and active plugin.</td></tr>
+        <tr><td><code>Set_Paths</code></td><td><code>Resources: string</code></td><td>Sets the root Appeal resources path used by the module.</td></tr>
+        <tr><td><code>Connect</code></td><td><code>Session: string, Host: string, Port: int</code></td><td>Requests the module to connect.</td></tr>
+        <tr><td><code>Listen</code></td><td><code>Listener: string, Port: int</code></td><td>Requests the module to listen.</td></tr>
+        <tr><td><code>Stop_Listening</code></td><td><code>Listener: string</code></td><td>Requests the module to stop listening.</td></tr>
+        <tr><td><code>Accept</code></td><td><code>Listener: string, Session: string</code></td><td>Requests the module to accept.</td></tr>
+        <tr><td><code>Disconnect</code></td><td><code>Session: string</code></td><td>Requests the module to disconnect.</td></tr>
+        <tr><td><code>Send</code></td><td><code>Session: string, Message: string</code></td><td>Requests the module to send.</td></tr>
+        <tr><td><code>Receive</code></td><td><code>Session: string</code></td><td>Requests the module to receive.</td></tr>
+        <tr><td><code>Poll</code></td><td><code>none</code></td><td>Polls the backend for newly available data or events.</td></tr>
+        <tr><td><code>Has_Data</code></td><td><code>Session: string</code></td><td>Requests the module to has data.</td></tr>
+        <tr><td><code>Has_Command</code></td><td><code>Session: string</code></td><td>Requests the module to has command.</td></tr>
+        <tr><td><code>Read_Command</code></td><td><code>Session: string</code></td><td>Requests the module to read command.</td></tr>
+        <tr><td><code>Run</code></td><td><code>Session: string</code></td><td>Requests the module to run.</td></tr>
+        <tr><td><code>Download</code></td><td><code>Session: string, Remote: string, Local: string</code></td><td>Requests the module to download.</td></tr>
+      </tbody>
+    </table>
+    <footer>16 commands documented.</footer>
+  </main>
+  <script>
+    const filter = document.getElementById('filter');
+    const rows = [...document.querySelectorAll('tbody tr')];
+    filter.addEventListener('input', () => {
+      const query = filter.value.toLowerCase();
+      rows.forEach(row => row.hidden = !row.textContent.toLowerCase().includes(query));
+    });
+  </script>
+</body>
+</html>
