@@ -1,0 +1,24 @@
+Appeal Network Test Bundle 1.0.0-beta.2
+
+This bundle contains the Network Module, SDL2 Network plugin, SDL2 runtime
+dependencies, and example Appeal scripts.
+
+Portable Appeal installation:
+
+1. Close Appeal.
+2. Make a backup copy of the existing Appeal folder.
+3. Extract this archive directly into the folder containing Appeal.exe.
+4. Allow the Resources folder to merge with the existing Resources folder.
+5. Edit Resources\Appeal\Network\Net_Config.Appeal on each computer.
+
+The example configuration uses:
+
+Current computer: 10.0.0.210
+Other computer:   10.0.0.35
+HTTP port:        8080
+Echo port:        34567
+Appeal port:      34568
+Chat port:        34569
+
+Start the server by running Network/Net_Echo_Server through Appeal, then run
+Network/Net_Client from the other computer.

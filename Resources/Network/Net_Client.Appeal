@@ -1,0 +1,16 @@
+// Echo client example.
+// Run Net_Config before this script so the Echo endpoint is configured.
+
+Print "Connecting to the Echo Server"
+Network Connect Echo
+
+Print "Sending Test 1 Passed"
+Network Send Echo "Test 1 Passed"
+
+// Receive waits for the reply and prints the received text.
+Network Receive Echo
+
+Network Disconnect Echo
+Print "Echo client disconnected"
+
+Return

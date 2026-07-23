@@ -1,0 +1,16 @@
+// HTTP Server example.
+// Run Net_Config before this script so all service ports are configured.
+//
+// The HTTP port serves the default Appeal page for GET and POST requests.
+// A Type request returns the reserved port for another connection type.
+// Run only one of the included server examples at a time.
+
+Network Server
+
+Print "Generic Network Server started"
+Print "Open the configured local IP and HTTP port in a web browser"
+Print Var Net_Local_IP
+Print Var Net_HTTP_Port
+Print "Use Network Stop_Server to stop the server"
+
+Return

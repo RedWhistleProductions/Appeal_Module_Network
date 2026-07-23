@@ -33,22 +33,19 @@
         <tr><td><code>Init</code></td><td><code>Name: string</code></td><td>Initializes the module and loads its default plugin.</td></tr>
         <tr><td><code>Debug</code></td><td><code>Value: string</code></td><td>Enables or disables diagnostic logging for the module and active plugin.</td></tr>
         <tr><td><code>Set_Paths</code></td><td><code>Resources: string</code></td><td>Sets the root Appeal resources path used by the module.</td></tr>
-        <tr><td><code>Connect</code></td><td><code>Session: string, Host: string, Port: int</code></td><td>Requests the module to connect.</td></tr>
-        <tr><td><code>Listen</code></td><td><code>Listener: string, Port: int</code></td><td>Requests the module to listen.</td></tr>
-        <tr><td><code>Stop_Listening</code></td><td><code>Listener: string</code></td><td>Requests the module to stop listening.</td></tr>
-        <tr><td><code>Accept</code></td><td><code>Listener: string, Session: string</code></td><td>Requests the module to accept.</td></tr>
-        <tr><td><code>Disconnect</code></td><td><code>Session: string</code></td><td>Requests the module to disconnect.</td></tr>
-        <tr><td><code>Send</code></td><td><code>Session: string, Message: string</code></td><td>Requests the module to send.</td></tr>
-        <tr><td><code>Receive</code></td><td><code>Session: string</code></td><td>Requests the module to receive.</td></tr>
-        <tr><td><code>Poll</code></td><td><code>none</code></td><td>Polls the backend for newly available data or events.</td></tr>
-        <tr><td><code>Has_Data</code></td><td><code>Session: string</code></td><td>Requests the module to has data.</td></tr>
-        <tr><td><code>Has_Command</code></td><td><code>Session: string</code></td><td>Requests the module to has command.</td></tr>
-        <tr><td><code>Read_Command</code></td><td><code>Session: string</code></td><td>Requests the module to read command.</td></tr>
-        <tr><td><code>Run</code></td><td><code>Session: string</code></td><td>Requests the module to run.</td></tr>
-        <tr><td><code>Download</code></td><td><code>Session: string, Remote: string, Local: string</code></td><td>Requests the module to download.</td></tr>
+        <tr><td><code>Configure</code></td><td><code>Type: string, Host: string, Port: int</code></td><td>Stores the endpoint used by a connection type without opening a connection.</td></tr>
+        <tr><td><code>Server</code></td><td><code>none</code></td><td>Starts the generic server on all configured service ports. The plugin accepts clients automatically and selects an interpreter from the destination port.</td></tr>
+        <tr><td><code>Stop_Server</code></td><td><code>none</code></td><td>Stops the generic server and its service listeners.</td></tr>
+        <tr><td><code>Connect</code></td><td><code>Type: string</code></td><td>Connects to the configured endpoint for HTTP, Echo, Chat, or Appeal.</td></tr>
+        <tr><td><code>Disconnect</code></td><td><code>Type: string</code></td><td>Closes the active connection of the specified type.</td></tr>
+        <tr><td><code>Send</code></td><td><code>Type: string, Message: string</code></td><td>Sends a message through the active connection of the specified type.</td></tr>
+        <tr><td><code>Receive</code></td><td><code>Type: string</code></td><td>Receives data from the active connection of the specified type.</td></tr>
+        <tr><td><code>Get_IP</code></td><td><code>Domain: string</code></td><td>Resolves a domain name through the Network plugin.</td></tr>
+        <tr><td><code>Run</code></td><td><code>Script: string</code></td><td>Runs a remote Appeal script through the configured Appeal connection.</td></tr>
+        <tr><td><code>Download</code></td><td><code>Remote: string, Local: string</code></td><td>Downloads a complete file through the configured Appeal connection.</td></tr>
       </tbody>
     </table>
-    <footer>16 commands documented.</footer>
+    <footer>13 commands documented.</footer>
   </main>
   <script>
     const filter = document.getElementById('filter');

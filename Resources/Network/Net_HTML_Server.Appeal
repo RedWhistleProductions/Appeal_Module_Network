@@ -1,0 +1,14 @@
+// HTML Server example.
+// The current plugin serves its built-in Appeal page through the HTTP service.
+// A later version can use Net_Resources_Path to serve HTML files.
+// Run only one of the included server examples at a time.
+
+Network Server
+
+Print "Generic Network Server started"
+Print "The default HTML page is available at the configured local IP and HTTP port"
+Print Var Net_Local_IP
+Print Var Net_HTTP_Port
+Print "Use Network Stop_Server to stop the server"
+
+Return

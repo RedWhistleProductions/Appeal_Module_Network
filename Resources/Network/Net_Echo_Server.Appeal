@@ -1,0 +1,13 @@
+// Echo Server example.
+// Run Net_Config before this script so all service ports are configured.
+//
+// Network Server starts one generic server for HTTP, Echo, Chat, and Appeal.
+// Run only one of the included server examples at a time.
+
+Network Server
+
+Print "Generic Network Server started"
+Print "Echo connections are accepted on the configured Echo port"
+Print "Use Network Stop_Server to stop the server"
+
+Return

@@ -6,19 +6,16 @@ bool Module_Debug = false;
 
 void (*Debug)(bool Enable);
 void (*Set_Paths)(std::string Resources);
-void (*Listen)(std::string Listener, int Port);
-void (*Stop_Listening)(std::string Listener);
-void (*Accept)(std::string Listener, std::string Session);
-void (*Connect)(std::string Session, std::string Host, int Port);
-void (*Disconnect)(std::string Session);
-void (*Send)(std::string Session, std::string Message);
-void (*Receive)(std::string Session);
-void (*Poll)();
-void (*Has_Data)(std::string Session);
-void (*Has_Command)(std::string Session);
-void (*Read_Command)(std::string Session);
-void (*Run)(std::string Session);
-void (*Download)(std::string Session, std::string Remote, std::string Local);
+void (*Configure)(std::string Type, std::string Host, int Port);
+void (*Server)();
+void (*Stop_Server)();
+void (*Connect)(std::string Type);
+void (*Disconnect)(std::string Type);
+void (*Send)(std::string Type, std::string Message);
+void (*Receive)(std::string Type);
+void (*Get_IP)(std::string Domain);
+void (*Run)(std::string Script);
+void (*Download)(std::string Remote, std::string Local);
 
 template<typename T>
 void Assign(std::string Name, T &Function)
@@ -31,17 +28,14 @@ extern "C" void Init(std::string Name)
     Module.Load(Name);
     Assign("Debug", Debug);
     Assign("Set_Paths", Set_Paths);
-    Assign("Listen", Listen);
-    Assign("Stop_Listening", Stop_Listening);
-    Assign("Accept", Accept);
+    Assign("Configure", Configure);
+    Assign("Server", Server);
+    Assign("Stop_Server", Stop_Server);
     Assign("Connect", Connect);
     Assign("Disconnect", Disconnect);
     Assign("Send", Send);
     Assign("Receive", Receive);
-    Assign("Poll", Poll);
-    Assign("Has_Data", Has_Data);
-    Assign("Has_Command", Has_Command);
-    Assign("Read_Command", Read_Command);
+    Assign("Get_IP", Get_IP);
     Assign("Run", Run);
     Assign("Download", Download);
 }
@@ -75,92 +69,68 @@ extern "C" void Interpreter(Data_Source *Data)
     {
         std::string Resources;
         *Data >> Resources;
-        Set_Paths(Resources);
+        if(Set_Paths != nullptr) Set_Paths(Resources);
+    }
+    else if(Command == "Configure")
+    {
+        std::string Type, Host;
+        int Port;
+        *Data >> Type;
+        *Data >> Host;
+        *Data >> Port;
+        if(Configure != nullptr) Configure(Type, Host, Port);
+    }
+    else if(Command == "Server")
+    {
+        if(Server != nullptr) Server();
+    }
+    else if(Command == "Stop_Server")
+    {
+        if(Stop_Server != nullptr) Stop_Server();
     }
     else if(Command == "Connect")
     {
-        std::string Session, Host;
-        int Port;
-        *Data >> Session;
-        *Data >> Host;
-        *Data >> Port;
-        Connect(Session, Host, Port);
-    }
-    else if(Command == "Listen")
-    {
-        std::string Listener;
-        int Port;
-        *Data >> Listener;
-        *Data >> Port;
-        Listen(Listener, Port);
-    }
-    else if(Command == "Stop_Listening")
-    {
-        std::string Listener;
-        *Data >> Listener;
-        Stop_Listening(Listener);
-    }
-    else if(Command == "Accept")
-    {
-        std::string Listener, Session;
-        *Data >> Listener;
-        *Data >> Session;
-        Accept(Listener, Session);
+        std::string Type;
+        *Data >> Type;
+        if(Connect != nullptr) Connect(Type);
     }
     else if(Command == "Disconnect")
     {
-        std::string Session;
-        *Data >> Session;
-        Disconnect(Session);
+        std::string Type;
+        *Data >> Type;
+        if(Disconnect != nullptr) Disconnect(Type);
     }
     else if(Command == "Send")
     {
-        std::string Session, Message;
-        *Data >> Session;
+        std::string Type, Message;
+        *Data >> Type;
         *Data >> Message;
-        Send(Session, Message);
+        if(Send != nullptr) Send(Type, Message);
     }
     else if(Command == "Receive")
     {
-        std::string Session;
-        *Data >> Session;
-        Receive(Session);
+        std::string Type;
+        *Data >> Type;
+        if(Receive != nullptr) Receive(Type);
     }
-    else if(Command == "Poll")
+    else if(Command == "Get_IP")
     {
-        Poll();
-    }
-    else if(Command == "Has_Data")
-    {
-        std::string Session;
-        *Data >> Session;
-        Has_Data(Session);
-    }
-    else if(Command == "Has_Command")
-    {
-        std::string Session;
-        *Data >> Session;
-        Has_Command(Session);
-    }
-    else if(Command == "Read_Command")
-    {
-        std::string Session;
-        *Data >> Session;
-        Read_Command(Session);
+        std::string Domain;
+        *Data >> Domain;
+        if(Get_IP != nullptr) Get_IP(Domain);
     }
     else if(Command == "Run")
     {
-        std::string Session;
-        *Data >> Session;
-        Run(Session);
+        std::string Script;
+        *Data >> Script;
+        if(Run != nullptr) Run(Script);
     }
     else if(Command == "Download")
     {
-        std::string Session, Remote, Local;
-        *Data >> Session;
+        std::string Remote, Local;
         *Data >> Remote;
         *Data >> Local;
-        Download(Session, Remote, Local);
+        if(Download != nullptr) Download(Remote, Local);
     }
     else
     {

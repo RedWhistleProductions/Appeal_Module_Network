@@ -1,0 +1,13 @@
+Appeal Network Module 1.0.0-beta.2
+
+1. Close Appeal.
+2. Extract this archive into the folder containing Appeal.exe.
+3. Allow the Resources folder in this archive to merge with Appeal's existing
+   Resources folder.
+4. Install the matching Appeal_SDL2_Network plugin before running the examples.
+
+The example scripts are installed under:
+
+Resources\Appeal\Network
+
+Start by editing Net_Config.Appeal for the computer on which it will run.

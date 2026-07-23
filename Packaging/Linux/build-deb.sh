@@ -13,8 +13,9 @@ output="$root/Dist/${package}_${deb_version}_${arch}.deb"
 
 make -C "$root" clean all
 rm -rf "$stage"
-mkdir -p "$stage/DEBIAN" "$stage/usr/share/appeal/Resources/Modules/$module" "$stage/usr/share/doc/$package"
+mkdir -p "$stage/DEBIAN" "$stage/usr/share/appeal/Resources/Modules/$module" "$stage/usr/share/appeal/Resources/Appeal/Network" "$stage/usr/share/doc/$package"
 cp "$root/$module.so" "$stage/usr/share/appeal/Resources/Modules/$module/"
+cp -R "$root/Resources/Network/." "$stage/usr/share/appeal/Resources/Appeal/Network/"
 cp "$root/LICENSE" "$stage/usr/share/doc/$package/copyright"
 
 cat > "$stage/DEBIAN/control" <<CONTROL

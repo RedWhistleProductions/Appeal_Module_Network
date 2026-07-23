@@ -1,5 +1,5 @@
 #define ModuleName "Network"
-#define ModuleVersion "1.0.0-beta.1"
+#define ModuleVersion "1.0.0-beta.2"
 
 [Setup]
 AppId={{1CDA6F01-47AC-4F75-A460-BA673068F007}
@@ -21,11 +21,30 @@ LicenseFile=..\..\LICENSE
 
 [Files]
 Source: "..\..\{#ModuleName}.dll"; DestDir: "{code:GetAppealResources}\Modules\{#ModuleName}"; Flags: ignoreversion
+Source: "..\..\Resources\Network\*"; DestDir: "{code:GetAppealResources}\Appeal\Network"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Dirs]
 Name: "{code:GetAppealResources}\Modules\{#ModuleName}"
+Name: "{code:GetAppealResources}\Appeal\Network"
 
 [Code]
+var
+  AppealResourcesPage: TInputDirWizardPage;
+
+procedure InitializeWizard;
+begin
+  AppealResourcesPage :=
+    CreateInputDirPage(
+      wpSelectDir,
+      'Appeal Resources Folder',
+      'Select the Resources folder used by Appeal.',
+      'For a portable installation, select the Resources folder beside Appeal.exe.',
+      False,
+      '');
+  AppealResourcesPage.Add('');
+  AppealResourcesPage.Values[0] := ExpandConstant('{userdocs}\Appeal\Resources');
+end;
+
 function GetAppealResources(Param: String): String;
 var
   OverridePath: String;
@@ -34,5 +53,5 @@ begin
   if OverridePath <> '' then
     Result := OverridePath
   else
-    Result := ExpandConstant('{userdocs}\Appeal\Resources');
+    Result := AppealResourcesPage.Values[0];
 end;

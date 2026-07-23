@@ -1,0 +1,22 @@
+// Network configuration shared by the Network client and server scripts.
+// This script only stores configuration. It does not connect or listen.
+
+// Computers used for local network testing.
+Set_Var Net_Local_IP 10.0.0.210
+Set_Var Net_Remote_IP 10.0.0.35
+
+// Ports are kept separate so each test server can run at the same time.
+Set_Var Net_Echo_Port 34567
+Set_Var Net_HTTP_Port 8080
+Set_Var Net_Appeal_Port 34568
+Set_Var Net_Chat_Port 34569
+
+// Configure the plugin without opening a connection or starting the server.
+Set_Var Net_Resources_Path ./Resources
+Network Set_Paths Var Net_Resources_Path
+Network Configure HTTP Var Net_Remote_IP Var Net_HTTP_Port
+Network Configure Echo Var Net_Remote_IP Var Net_Echo_Port
+Network Configure Appeal Var Net_Remote_IP Var Net_Appeal_Port
+Network Configure Chat Var Net_Remote_IP Var Net_Chat_Port
+
+Return

@@ -1,0 +1,15 @@
+// Appeal Server example.
+// Run Net_Config before this script so all service ports are configured.
+//
+// Connections accepted on the Appeal port use the Appeal service mode.
+// Run and Download requests are transported by the current plugin.
+// Net_Data_Source execution and file transfer will be added later.
+// Run only one of the included server examples at a time.
+
+Network Server
+
+Print "Generic Network Server started"
+Print "Appeal connections are accepted on the configured Appeal port"
+Print "Use Network Stop_Server to stop the server"
+
+Return
