@@ -4,6 +4,7 @@
 Plugin Module;
 bool Module_Debug = false;
 
+// Function Pointers for Key Words
 void (*Debug)(bool Enable);
 void (*Set_Paths)(std::string Resources);
 void (*Configure)(std::string Type, std::string Host, int Port);
@@ -16,6 +17,7 @@ void (*Receive)(std::string Type);
 void (*Get_IP)(std::string Domain);
 void (*Run)(std::string Script);
 void (*Download)(std::string Remote, std::string Local);
+// End of Function Pointers for Key Words
 
 template<typename T>
 void Assign(std::string Name, T &Function)
