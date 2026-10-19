@@ -5,6 +5,11 @@ extern "C" void Debug(bool Enable)
 	std::cout << "Debug " << Enable << std::endl;
 }
 
+extern "C" void Set_HTML_Path(std::string Path)
+{
+    std::cout << "Set_HTML_Path(" << Path << ")" << std::endl;
+}
+
 extern "C" void Set_Paths(std::string Resources)
 {
 	std::cout << "Set_Paths(" << Resources << ")" << std::endl;

@@ -7,6 +7,7 @@ bool Module_Debug = false;
 // Function Pointers for Key Words
 void (*Debug)(bool Enable);
 void (*Set_Paths)(std::string Resources);
+void (*Set_HTML_Path)(std::string Path);
 void (*Configure)(std::string Type, std::string Host, int Port);
 void (*Server)();
 void (*Stop_Server)();
@@ -30,6 +31,7 @@ extern "C" void Init(std::string Name)
     Module.Load(Name);
     Assign("Debug", Debug);
     Assign("Set_Paths", Set_Paths);
+    Assign("Set_HTML_Path", Set_HTML_Path);
     Assign("Configure", Configure);
     Assign("Server", Server);
     Assign("Stop_Server", Stop_Server);
@@ -72,6 +74,12 @@ extern "C" void Interpreter(Data_Source *Data)
         std::string Resources;
         *Data >> Resources;
         if(Set_Paths != nullptr) Set_Paths(Resources);
+    }
+    else if(Command == "Set_HTML_Path")
+    {
+        std::string Path;
+        *Data >> Path;
+        if(Set_HTML_Path != nullptr) Set_HTML_Path(Path);
     }
     else if(Command == "Configure")
     {
