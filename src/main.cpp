@@ -9,6 +9,10 @@ void (*Debug)(bool Enable);
 void (*Set_Paths)(std::string Resources);
 void (*Set_HTML_Path)(std::string Path);
 void (*Configure)(std::string Type, std::string Host, int Port);
+bool (*Configure_TLS)(std::string,std::string)=nullptr;
+void (*Disable)(std::string)=nullptr;
+std::string (*Last_Error)()=nullptr;
+bool (*Is_Server_Running)()=nullptr;
 void (*Server)();
 void (*Stop_Server)();
 void (*Connect)(std::string Type);
@@ -33,6 +37,10 @@ extern "C" void Init(std::string Name)
     Assign("Set_Paths", Set_Paths);
     Assign("Set_HTML_Path", Set_HTML_Path);
     Assign("Configure", Configure);
+    Assign("Configure_TLS",Configure_TLS);
+    Assign("Disable",Disable);
+    Assign("Last_Error",Last_Error);
+    Assign("Is_Server_Running",Is_Server_Running);
     Assign("Server", Server);
     Assign("Stop_Server", Stop_Server);
     Assign("Connect", Connect);
@@ -90,6 +98,16 @@ extern "C" void Interpreter(Data_Source *Data)
         *Data >> Port;
         if(Configure != nullptr) Configure(Type, Host, Port);
     }
+    else if(Command=="Configure_TLS"){
+        std::string certificate,key;*Data>>certificate;*Data>>key;
+        if(!Configure_TLS)throw std::runtime_error("Network plugin does not support HTTPS");
+        Data->Return_Value(Configure_TLS(certificate,key)?"1":"0");
+    }
+    else if(Command=="Disable"){
+        std::string type;*Data>>type;if(!Disable)throw std::runtime_error("Network plugin does not support disabling endpoints");Disable(type);
+    }
+    else if(Command=="Last_Error")Data->Return_Value(Last_Error?Last_Error():"Network plugin does not support diagnostics");
+    else if(Command=="Is_Server_Running")Data->Return_Value(Is_Server_Running && Is_Server_Running()?"1":"0");
     else if(Command == "Server")
     {
         if(Server != nullptr) Server();
@@ -146,4 +164,9 @@ extern "C" void Interpreter(Data_Source *Data)
     {
         if(Module_Debug) std::cout << "\tError: " << Command << " not found in Network Dictionary" << std::endl;
     }
+}
+
+extern "C" void Shutdown()
+{
+    Module.Unload();
 }

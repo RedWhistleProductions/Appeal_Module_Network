@@ -32,3 +32,7 @@ plugin repositories, build a combined test bundle with:
 ```powershell
 .\Packaging\Windows\Build-Test-Bundle.ps1
 ```
+
+## HTTPS HTML serving
+
+The SDL2 plugin supports HTTPS using Mbed TLS and configured PEM credentials. See [HTTPS setup, APIs, build, and tests](Docs/HTTPS.md). Existing HTTP is retained; endpoints can be disabled for HTTPS-only use.

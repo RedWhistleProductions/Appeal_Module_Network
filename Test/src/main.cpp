@@ -64,3 +64,8 @@ extern "C" void Download(std::string Remote, std::string Local)
 {
 	std::cout << "Download " << Remote << ", " << Local  << std::endl;
 }
+
+extern "C" bool Configure_TLS(std::string Certificate,std::string Key){std::cout<<"Configure_TLS "<<Certificate<<" "<<Key<<std::endl;return true;}
+extern "C" void Disable(std::string Type){std::cout<<"Disable "<<Type<<std::endl;}
+extern "C" std::string Last_Error(){std::cout<<"Last_Error"<<std::endl;return "";}
+extern "C" bool Is_Server_Running(){std::cout<<"Is_Server_Running"<<std::endl;return false;}
